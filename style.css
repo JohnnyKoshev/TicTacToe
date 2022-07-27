@@ -1,0 +1,52 @@
+main {
+    width: 100vw;
+    height: 90vh;
+}
+
+
+
+.tbody-container{
+    width: 820px;
+    height: 500px;
+}
+
+table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.table>:not(caption)>*>*{
+    padding: 3.5rem 3.5rem;
+}
+
+.table-container {
+    position: relative;
+    top: 15vh;
+}
+
+table td {
+    width: 140px;
+    height: 170px;
+    font-size: 30px;
+    border-left: 4px solid #000;
+    border-right: 4px solid #000;
+    border-bottom: none;
+}
+
+table td:first-child {
+    border-left: none;
+}
+
+table td:last-child {
+    border-right: none;
+}
+
+table tr {
+    border-bottom: 4px solid #000;
+}
+
+table tr:last-child {
+    border-bottom: none;
+}
