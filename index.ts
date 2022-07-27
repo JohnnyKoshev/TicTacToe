@@ -16,10 +16,9 @@ class TicTacToe {
             }
             count++;
         }
-
     }
 
-    private rowEquality(arr: HTMLTableDataCellElement[]): boolean[] | [boolean, string]{
+    private rowEquality(arr: HTMLTableDataCellElement[]): boolean[] | [boolean, string] {
         let check: boolean = false;
         let tempEl: any = document.createElement('td');
         for (let i = 0; i < arr.length; i++) {
@@ -42,6 +41,39 @@ class TicTacToe {
             cellsRow.forEach((cell) => {
                 cell.replaceWith(cell.cloneNode(true));
             })
+        }
+    }
+
+    private noCells(): boolean {
+        for (let i = 0; i < this.cellsArr.length; i++) {
+            for (let j = 0; j < this.cellsArr[i].length; j++) {
+                if (!this.cellsArr[i][j].innerText) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private botFindCell(): number[] {
+        let randomRow = Math.floor(Math.random() * 3);
+        let randomCol = Math.floor(Math.random() * 3);
+        if (!this.noCells()) {
+            while (this.cellsArr[randomRow][randomCol].innerText !== '') {
+                randomRow = Math.floor(Math.random() * 3);
+                randomCol = Math.floor(Math.random() * 3);
+            }
+            return [randomRow, randomCol]
+        }
+        return [-1, -1];
+    }
+
+    private botPlay(figure: string, lastPlayerRef: string): void {
+        let randomPos: number[] = this.botFindCell();
+        if (randomPos[0] !== -1 && randomPos[1] !== -1) {
+            this.cellsArr[randomPos[0]][randomPos[1]].innerText = figure;
+            lastPlayerRef = figure;
+            this.lastPlayer.push(lastPlayerRef);
         }
     }
 
@@ -75,7 +107,7 @@ class TicTacToe {
         }
     }
 
-    public startGame(): void {
+    public startPvP(): void {
         for (const cellsRow of this.cellsArr) {
             cellsRow.forEach((cell) => {
                 cell.addEventListener('click', (): void => {
@@ -90,13 +122,62 @@ class TicTacToe {
                             player = cell.innerText;
                             this.lastPlayer.push(player);
                         }
+                        console.log(this.cellsArr);
                         this.checkWin();
                     }
                 });
             })
         }
     }
+
+    public startPvB(): void {
+        let check: boolean = true;
+        let player: string = '';
+        let playerChoice: string | null = '';
+        while (check) {
+            playerChoice = prompt("Choose 'X' or 'O':");
+            if (playerChoice === 'X') {
+                check = false;
+            } else if (playerChoice === 'O') {
+                check = false;
+                this.botPlay('X', player);
+            } else {
+                alert('Invalid choice. Please, try again!');
+            }
+        }
+        for (const cellsRow of this.cellsArr) {
+            cellsRow.forEach((cell) => {
+                cell.addEventListener('click', () => {
+                    if (!cell.innerText) {
+                        if (playerChoice === 'X') {
+                            if (this.lastPlayer.length === 0 || this.lastPlayer[this.lastPlayer.length - 1] === 'O') {
+                                cell.innerText = 'X';
+                                player = cell.innerText;
+                                this.lastPlayer.push(player);
+                            }
+                            this.checkWin();
+                            this.botPlay('O', player);
+                        } else if (playerChoice === 'O') {
+                            if (this.lastPlayer[this.lastPlayer.length - 1] === 'X') {
+                                cell.innerText = 'O';
+                                player = cell.innerText;
+                                this.lastPlayer.push(player);
+                            }
+                            this.checkWin();
+                            this.botPlay('X', player);
+
+                        }
+                        console.log(this.cellsArr);
+                        this.checkWin();
+                    }
+
+                })
+
+            })
+        }
+
+    }
 }
 
 const game = new TicTacToe(cells);
-game.startGame();
+game.startPvB();
