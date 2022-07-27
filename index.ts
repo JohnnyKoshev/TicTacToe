@@ -177,7 +177,25 @@ class TicTacToe {
         }
 
     }
+
+    public chooseGameType(): void {
+        let check = true;
+        while (check) {
+            const selection: string | null = prompt(`Choose a type of game:
+                                          1. Player vs Bot (random)
+                                          2. Player vs Player`);
+            if (selection === '1') {
+                check = false;
+                this.startPvB();
+            } else if (selection === '2') {
+                check = false;
+                this.startPvP();
+            } else {
+                alert('Invalid selection. Please, try again!');
+            }
+        }
+    }
 }
 
 const game = new TicTacToe(cells);
-game.startPvB();
+game.chooseGameType();
