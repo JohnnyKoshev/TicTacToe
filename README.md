@@ -44,3 +44,6 @@ To run the game locally, follow these steps:
 - CSS3
 - TypeScript
 - Bootstrap 5
+
+## License
+The project is licensed under the MIT License.
