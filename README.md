@@ -21,7 +21,7 @@ To run the game locally, follow these steps:
 2. Open the project directory:
 
    ```
-   cd tic-tac-toe
+   cd TicTacToe
    ```
 
 3. Compile `index.ts` file. Run in the project directory the following command:
