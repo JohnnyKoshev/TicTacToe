@@ -24,7 +24,13 @@ To run the game locally, follow these steps:
    cd tic-tac-toe
    ```
 
-3. Open the `index.html` file in your web browser.
+3. Compile `index.ts` file. Run in the project directory the following command:
+   
+   ```
+   tsc
+   ```
+
+4. Open the `index.html` file in your web browser.
 
 ## How to Play
 
